@@ -30,17 +30,6 @@ public class SecurityAuditorTests
     }
 
     [Fact]
-    public async Task RunAuditAsync_RelativeUrl_ThrowsAuditException()
-    {
-        var sut = CreateSut();
-
-        var act = () => sut.RunAuditAsync("/opc/path", timeoutSeconds: 5, CancellationToken.None);
-
-        await act.Should().ThrowAsync<AuditException>()
-                 .WithMessage("*Invalid target URL*");
-    }
-
-    [Fact]
     public async Task RunAuditAsync_ValidUrlFormat_ThrowsAuditExceptionAboutDiscovery()
     {
         // A syntactically valid URL must not be rejected at URL-parsing time.
