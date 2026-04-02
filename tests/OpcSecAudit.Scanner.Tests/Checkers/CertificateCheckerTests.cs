@@ -63,8 +63,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-CERT-001")
-                .Which.Severity.Should().Be(Severity.Critical);
+        findings.Single(f => f.Id == "SEC-CERT-001").Severity.ShouldBe(Severity.Critical);
     }
 
     [Fact]
@@ -75,7 +74,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-001");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-001");
     }
 
     // ── SEC-CERT-002 ──────────────────────────────────────────────────────────
@@ -88,8 +87,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-CERT-002")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-CERT-002").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -100,7 +98,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-002");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-002");
     }
 
     // ── SEC-CERT-003 ──────────────────────────────────────────────────────────
@@ -113,8 +111,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-CERT-003")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-CERT-003").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -125,7 +122,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-003");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-003");
     }
 
     // ── SEC-CERT-004 ──────────────────────────────────────────────────────────
@@ -138,8 +135,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-CERT-004")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-CERT-004").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -150,7 +146,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-004");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-004");
     }
 
     // ── SEC-CERT-005 ──────────────────────────────────────────────────────────
@@ -163,8 +159,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-CERT-005")
-                .Which.Severity.Should().Be(Severity.Info);
+        findings.Single(f => f.Id == "SEC-CERT-005").Severity.ShouldBe(Severity.Info);
     }
 
     [Fact]
@@ -175,7 +170,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-005");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-005");
     }
 
     // ── SEC-CERT-006 ──────────────────────────────────────────────────────────
@@ -188,8 +183,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-CERT-006")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-CERT-006").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -201,7 +195,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-006");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-006");
     }
 
     [Fact]
@@ -212,7 +206,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-CERT-006");
+        findings.ShouldNotContain(f => f.Id == "SEC-CERT-006");
     }
 
     // ── Edge cases ────────────────────────────────────────────────────────────
@@ -233,7 +227,7 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().BeEmpty();
+        findings.ShouldBeEmpty();
     }
 
     [Fact]
@@ -247,6 +241,6 @@ public class CertificateCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Count(f => f.Id == "SEC-CERT-005").Should().Be(1);
+        findings.Count(f => f.Id == "SEC-CERT-005").ShouldBe(1);
     }
 }

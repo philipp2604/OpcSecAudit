@@ -45,8 +45,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-EP-001")
-                .Which.Severity.Should().Be(Severity.Critical);
+        findings.Single(f => f.Id == "SEC-EP-001").Severity.ShouldBe(Severity.Critical);
     }
 
     [Fact]
@@ -56,7 +55,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-EP-001");
+        findings.ShouldNotContain(f => f.Id == "SEC-EP-001");
     }
 
     [Fact]
@@ -69,7 +68,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Count(f => f.Id == "SEC-EP-001").Should().Be(1);
+        findings.Count(f => f.Id == "SEC-EP-001").ShouldBe(1);
     }
 
     // ── SEC-EP-002 ────────────────────────────────────────────────────────────
@@ -81,8 +80,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-EP-002")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-EP-002").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -92,7 +90,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-EP-002");
+        findings.ShouldNotContain(f => f.Id == "SEC-EP-002");
     }
 
     [Fact]
@@ -105,7 +103,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Count(f => f.Id == "SEC-EP-002").Should().Be(1);
+        findings.Count(f => f.Id == "SEC-EP-002").ShouldBe(1);
     }
 
     // ── SEC-EP-003 ────────────────────────────────────────────────────────────
@@ -117,8 +115,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-EP-003")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-EP-003").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -129,7 +126,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-EP-003");
+        findings.ShouldNotContain(f => f.Id == "SEC-EP-003");
     }
 
     // ── SEC-EP-004 ────────────────────────────────────────────────────────────
@@ -141,8 +138,7 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-EP-004")
-                .Which.Severity.Should().Be(Severity.Info);
+        findings.Single(f => f.Id == "SEC-EP-004").Severity.ShouldBe(Severity.Info);
     }
 
     [Fact]
@@ -152,6 +148,6 @@ public class EndpointSecurityCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-EP-004");
+        findings.ShouldNotContain(f => f.Id == "SEC-EP-004");
     }
 }

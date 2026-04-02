@@ -35,7 +35,7 @@ public class AuditResultTests
         };
 
         // Assert
-        result.CriticalCount.Should().Be(2);
+        result.CriticalCount.ShouldBe(2);
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class AuditResultTests
         };
 
         // Assert
-        result.WarningCount.Should().Be(2);
+        result.WarningCount.ShouldBe(2);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class AuditResultTests
         };
 
         // Assert
-        result.InfoCount.Should().Be(3);
+        result.InfoCount.ShouldBe(3);
     }
 
     [Fact]
@@ -97,9 +97,9 @@ public class AuditResultTests
         };
 
         // Assert
-        result.CriticalCount.Should().Be(0);
-        result.WarningCount.Should().Be(0);
-        result.InfoCount.Should().Be(0);
+        result.CriticalCount.ShouldBe(0);
+        result.WarningCount.ShouldBe(0);
+        result.InfoCount.ShouldBe(0);
     }
 
     [Fact]
@@ -116,6 +116,6 @@ public class AuditResultTests
         };
 
         // Assert
-        result.ServerInfo.Should().BeNull();
+        result.ServerInfo.ShouldBeNull();
     }
 }
