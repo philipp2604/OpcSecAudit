@@ -1,1 +1,13 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OpcSecAudit.Core/OpcSecAudit.Core.csproj" />
+    <Project Path="src/OpcSecAudit.Scanner/OpcSecAudit.Scanner.csproj" />
+    <Project Path="src/OpcSecAudit.Reporting/OpcSecAudit.Reporting.csproj" />
+    <Project Path="src/OpcSecAudit.Cli/OpcSecAudit.Cli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OpcSecAudit.Core.Tests/OpcSecAudit.Core.Tests.csproj" />
+    <Project Path="tests/OpcSecAudit.Scanner.Tests/OpcSecAudit.Scanner.Tests.csproj" />
+    <Project Path="tests/OpcSecAudit.Reporting.Tests/OpcSecAudit.Reporting.Tests.csproj" />
+  </Folder>
+</Solution>

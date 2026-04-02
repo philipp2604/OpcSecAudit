@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OpcSecAudit.Core\OpcSecAudit.Core.csproj" />
+  </ItemGroup>
+</Project>
