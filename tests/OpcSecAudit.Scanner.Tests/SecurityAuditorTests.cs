@@ -25,8 +25,8 @@ public class SecurityAuditorTests
 
         var act = () => sut.RunAuditAsync("not-a-url", timeoutSeconds: 5, CancellationToken.None);
 
-        await act.Should().ThrowAsync<AuditException>()
-                 .WithMessage("*Invalid target URL*");
+        var ex = await Should.ThrowAsync<AuditException>(act);
+        ex.Message.ShouldContain("Invalid target URL");
     }
 
     [Fact]
@@ -40,8 +40,8 @@ public class SecurityAuditorTests
         var act = () => sut.RunAuditAsync(
             "opc.tcp://127.0.0.1:19999", timeoutSeconds: 1, CancellationToken.None);
 
-        var ex = await act.Should().ThrowAsync<AuditException>();
-        ex.WithMessage("*discovery*");
-        ex.Which.Message.Should().NotContain("Invalid target URL");
+        var ex = await Should.ThrowAsync<AuditException>(act);
+        ex.Message.ShouldContain("discovery");
+        ex.Message.ShouldNotContain("Invalid target URL");
     }
 }

@@ -9,16 +9,16 @@ public class SeverityTests
     {
         var values = Enum.GetValues<Severity>();
 
-        values.Should().HaveCount(3);
-        values.Should().Contain(Severity.Info);
-        values.Should().Contain(Severity.Warning);
-        values.Should().Contain(Severity.Critical);
+        values.Length.ShouldBe(3);
+        values.ShouldContain(Severity.Info);
+        values.ShouldContain(Severity.Warning);
+        values.ShouldContain(Severity.Critical);
     }
 
     [Fact]
     public void Severity_InfoIsLowestOrdinal()
     {
-        ((int)Severity.Info).Should().BeLessThan((int)Severity.Warning);
-        ((int)Severity.Warning).Should().BeLessThan((int)Severity.Critical);
+        ((int)Severity.Info).ShouldBeLessThan((int)Severity.Warning);
+        ((int)Severity.Warning).ShouldBeLessThan((int)Severity.Critical);
     }
 }

@@ -59,8 +59,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-SRV-001")
-                .Which.Severity.Should().Be(Severity.Info);
+        findings.Single(f => f.Id == "SEC-SRV-001").Severity.ShouldBe(Severity.Info);
     }
 
     [Fact]
@@ -71,7 +70,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-SRV-001");
+        findings.ShouldNotContain(f => f.Id == "SEC-SRV-001");
     }
 
     // ── SEC-SRV-002 ──────────────────────────────────────────────────────────
@@ -84,10 +83,10 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        var finding = findings.Should().ContainSingle(f => f.Id == "SEC-SRV-002").Subject;
-        finding.Severity.Should().Be(Severity.Info);
-        finding.Description.Should().Contain("AcmeServer");
-        finding.Description.Should().Contain("2.1.0");
+        var finding = findings.Single(f => f.Id == "SEC-SRV-002");
+        finding.Severity.ShouldBe(Severity.Info);
+        finding.Description.ShouldContain("AcmeServer");
+        finding.Description.ShouldContain("2.1.0");
     }
 
     [Fact]
@@ -98,7 +97,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-SRV-002");
+        findings.ShouldNotContain(f => f.Id == "SEC-SRV-002");
     }
 
     // ── SEC-SRV-003 ──────────────────────────────────────────────────────────
@@ -112,8 +111,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-SRV-003")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-SRV-003").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -124,7 +122,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-SRV-003");
+        findings.ShouldNotContain(f => f.Id == "SEC-SRV-003");
     }
 
     // ── SEC-SRV-004 ──────────────────────────────────────────────────────────
@@ -138,8 +136,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-SRV-004")
-                .Which.Severity.Should().Be(Severity.Info);
+        findings.Single(f => f.Id == "SEC-SRV-004").Severity.ShouldBe(Severity.Info);
     }
 
     [Fact]
@@ -151,7 +148,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-SRV-004");
+        findings.ShouldContain(f => f.Id == "SEC-SRV-004");
     }
 
     [Fact]
@@ -163,7 +160,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-SRV-004");
+        findings.ShouldNotContain(f => f.Id == "SEC-SRV-004");
     }
 
     [Fact]
@@ -174,7 +171,7 @@ public class ServerConfigCheckerTests
 
         var findings = await CreateSut().RunAsync(context, CancellationToken.None);
 
-        var finding = findings.Should().ContainSingle(f => f.Id == "SEC-SRV-004").Subject;
-        finding.Description.Should().Contain("no anonymous");
+        var finding = findings.Single(f => f.Id == "SEC-SRV-004");
+        finding.Description.ShouldContain("no anonymous");
     }
 }

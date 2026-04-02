@@ -1,6 +1,9 @@
 # OpcSecAudit
 
-[![CI](https://github.com/philipp2604/OpcSecAudit/actions/workflows/ci.yml/badge.svg)](https://github.com/philipp2604/OpcSecAudit/actions/workflows/ci.yml)
+| Branch | Build Status |
+| :--- | :--- |
+| **master** (Stable) | [![CI Master](https://github.com/philipp2604/OpcSecAudit/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/philipp2604/OpcSecAudit/actions) |
+| **dev** (Latest) | [![CI Dev](https://github.com/philipp2604/OpcSecAudit/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/philipp2604/OpcSecAudit/actions) |
 
 **OpcSecAudit** is a command-line tool that connects to an OPC UA server, evaluates its security configuration, and produces a findings report. It performs passive, non-destructive checks across four security categories — endpoint security, authentication, server certificates, and server configuration — then presents the results on the console and optionally exports a self-contained HTML report.
 
@@ -151,6 +154,12 @@ OpcSecAudit/
 ## License
 
 MIT — see [LICENSE.txt](LICENSE.txt).
+
+---
+
+## Third Party Libraries
+
+OpcSecAudit uses open-source software. See [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt) for details.
 
 ---
 

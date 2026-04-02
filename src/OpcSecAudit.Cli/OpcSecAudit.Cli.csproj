@@ -14,4 +14,7 @@
     <ProjectReference Include="..\..\src\OpcSecAudit.Reporting\OpcSecAudit.Reporting.csproj" />
     <ProjectReference Include="..\..\src\OpcSecAudit.Scanner\OpcSecAudit.Scanner.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\THIRD-PARTY-NOTICES.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

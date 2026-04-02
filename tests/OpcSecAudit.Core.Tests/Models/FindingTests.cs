@@ -19,12 +19,12 @@ public class FindingTests
         };
 
         // Assert
-        finding.Id.Should().Be("SEC-EP-001");
-        finding.Category.Should().Be("Endpoint Security");
-        finding.Severity.Should().Be(Severity.Critical);
-        finding.Title.Should().Be("Unencrypted Endpoint Available");
-        finding.CweId.Should().BeNull();
-        finding.CweDescription.Should().BeNull();
+        finding.Id.ShouldBe("SEC-EP-001");
+        finding.Category.ShouldBe("Endpoint Security");
+        finding.Severity.ShouldBe(Severity.Critical);
+        finding.Title.ShouldBe("Unencrypted Endpoint Available");
+        finding.CweId.ShouldBeNull();
+        finding.CweDescription.ShouldBeNull();
     }
 
     [Fact]
@@ -44,8 +44,8 @@ public class FindingTests
         };
 
         // Assert
-        finding.CweId.Should().Be("CWE-319");
-        finding.CweDescription.Should().Be("Cleartext Transmission of Sensitive Information");
+        finding.CweId.ShouldBe("CWE-319");
+        finding.CweDescription.ShouldBe("Cleartext Transmission of Sensitive Information");
     }
 
     [Fact]
@@ -63,8 +63,8 @@ public class FindingTests
         };
 
         // Assert — init-only properties cannot be reassigned; verify the type uses init
-        finding.Id.Should().Be("SEC-EP-001");
+        finding.Id.ShouldBe("SEC-EP-001");
         typeof(Finding).GetProperty(nameof(Finding.Id))!
-            .SetMethod.Should().NotBeNull("init setters exist for object initializers");
+            .SetMethod.ShouldNotBeNull("init setters exist for object initializers");
     }
 }

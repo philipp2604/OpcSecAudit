@@ -47,8 +47,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-AUTH-001")
-                .Which.Severity.Should().Be(Severity.Critical);
+        findings.Single(f => f.Id == "SEC-AUTH-001").Severity.ShouldBe(Severity.Critical);
     }
 
     [Fact]
@@ -58,7 +57,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-AUTH-001");
+        findings.ShouldNotContain(f => f.Id == "SEC-AUTH-001");
     }
 
     [Fact]
@@ -71,8 +70,8 @@ public class AuthenticationCheckerTests
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
         var finding = findings.Single(f => f.Id == "SEC-AUTH-001");
-        finding.Description.Should().Contain("opc.tcp://srv:4840");
-        finding.Description.Should().Contain("opc.tcp://srv:4841");
+        finding.Description.ShouldContain("opc.tcp://srv:4840");
+        finding.Description.ShouldContain("opc.tcp://srv:4841");
     }
 
     // ── SEC-AUTH-002 ──────────────────────────────────────────────────────────
@@ -84,8 +83,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-AUTH-002")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-AUTH-002").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -95,7 +93,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-AUTH-002");
+        findings.ShouldNotContain(f => f.Id == "SEC-AUTH-002");
     }
 
     // ── SEC-AUTH-003 ──────────────────────────────────────────────────────────
@@ -107,8 +105,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-AUTH-003")
-                .Which.Severity.Should().Be(Severity.Warning);
+        findings.Single(f => f.Id == "SEC-AUTH-003").Severity.ShouldBe(Severity.Warning);
     }
 
     [Fact]
@@ -119,7 +116,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-AUTH-003");
+        findings.ShouldNotContain(f => f.Id == "SEC-AUTH-003");
     }
 
     [Fact]
@@ -129,7 +126,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-AUTH-003");
+        findings.ShouldNotContain(f => f.Id == "SEC-AUTH-003");
     }
 
     // ── SEC-AUTH-004 ──────────────────────────────────────────────────────────
@@ -141,8 +138,7 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().ContainSingle(f => f.Id == "SEC-AUTH-004")
-                .Which.Severity.Should().Be(Severity.Info);
+        findings.Single(f => f.Id == "SEC-AUTH-004").Severity.ShouldBe(Severity.Info);
     }
 
     [Fact]
@@ -152,6 +148,6 @@ public class AuthenticationCheckerTests
 
         var findings = await Sut.RunAsync(context, CancellationToken.None);
 
-        findings.Should().NotContain(f => f.Id == "SEC-AUTH-004");
+        findings.ShouldNotContain(f => f.Id == "SEC-AUTH-004");
     }
 }
