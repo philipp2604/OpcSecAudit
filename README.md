@@ -154,4 +154,10 @@ MIT — see [LICENSE.txt](LICENSE.txt).
 
 ---
 
+## Third Party Libraries
+
+OpcSecAudit uses open-source software. See [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt) for details.
+
+---
+
 > **Disclaimer:** This tool is for authorized security assessments only. Only run OpcSecAudit against OPC UA servers you own or have explicit written permission to test.
