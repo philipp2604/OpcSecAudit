@@ -39,7 +39,7 @@ public class EndpointSecurityCheckerTests
     // ── SEC-EP-001 ────────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecEp001_Triggered_WhenSecurityModeNoneAndNonePolicy()
+    public async Task RunAsync_SecurityModeNoneAndNonePolicy_EmitsSecEp001()
     {
         var context = MakeContext([MakeEndpoint("None", NonePolicy)]);
 
@@ -50,7 +50,7 @@ public class EndpointSecurityCheckerTests
     }
 
     [Fact]
-    public async Task SecEp001_NotTriggered_WhenSecurityModeIsSignAndEncrypt()
+    public async Task RunAsync_SecurityModeIsSignAndEncrypt_DoesNotEmitSecEp001()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", Basic256Sha256Policy)]);
 
@@ -60,7 +60,7 @@ public class EndpointSecurityCheckerTests
     }
 
     [Fact]
-    public async Task SecEp001_EmittedOnce_WhenMultipleNoneEndpointsExist()
+    public async Task RunAsync_MultipleNoneEndpointsExist_EmitsSecEp001Once()
     {
         var context = MakeContext([
             MakeEndpoint("None", NonePolicy, "opc.tcp://srv:4840"),
@@ -75,7 +75,7 @@ public class EndpointSecurityCheckerTests
     // ── SEC-EP-002 ────────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecEp002_Triggered_WhenBasic128Rsa15PolicyPresent()
+    public async Task RunAsync_Basic128Rsa15PolicyPresent_EmitsSecEp002()
     {
         var context = MakeContext([MakeEndpoint("Sign", Basic128Policy)]);
 
@@ -86,7 +86,7 @@ public class EndpointSecurityCheckerTests
     }
 
     [Fact]
-    public async Task SecEp002_NotTriggered_WhenNoBasic128Rsa15Policy()
+    public async Task RunAsync_NoBasic128Rsa15Policy_DoesNotEmitSecEp002()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", Basic256Sha256Policy)]);
 
@@ -96,7 +96,7 @@ public class EndpointSecurityCheckerTests
     }
 
     [Fact]
-    public async Task SecEp002_EmittedOnce_WhenMultipleBasic128Endpoints()
+    public async Task RunAsync_MultipleBasic128Endpoints_EmitsSecEp002Once()
     {
         var context = MakeContext([
             MakeEndpoint("Sign", Basic128Policy, "opc.tcp://srv:4840"),
@@ -111,7 +111,7 @@ public class EndpointSecurityCheckerTests
     // ── SEC-EP-003 ────────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecEp003_Triggered_WhenBasic256LegacyPolicyPresent()
+    public async Task RunAsync_Basic256LegacyPolicyPresent_EmitsSecEp003()
     {
         var context = MakeContext([MakeEndpoint("Sign", Basic256Policy)]);
 
@@ -122,7 +122,7 @@ public class EndpointSecurityCheckerTests
     }
 
     [Fact]
-    public async Task SecEp003_NotTriggered_WhenBasic256Sha256PolicyUsed()
+    public async Task RunAsync_Basic256Sha256PolicyUsed_DoesNotEmitSecEp003()
     {
         // "Basic256Sha256" contains "Basic256" but must NOT trigger SEC-EP-003
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", Basic256Sha256Policy)]);
@@ -135,7 +135,7 @@ public class EndpointSecurityCheckerTests
     // ── SEC-EP-004 ────────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecEp004_Triggered_WhenAllEndpointsUseApprovedPolicies()
+    public async Task RunAsync_AllEndpointsUseApprovedPolicies_EmitsSecEp004()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", Basic256Sha256Policy)]);
 
@@ -146,7 +146,7 @@ public class EndpointSecurityCheckerTests
     }
 
     [Fact]
-    public async Task SecEp004_NotTriggered_WhenAnyWeakPolicyFound()
+    public async Task RunAsync_AnyWeakPolicyFound_DoesNotEmitSecEp004()
     {
         var context = MakeContext([MakeEndpoint("None", NonePolicy)]);
 

@@ -52,7 +52,7 @@ public class ServerConfigCheckerTests
     // ── SEC-SRV-001 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecSrv001_Triggered_WhenPortIs4840()
+    public async Task RunAsync_PortIs4840_EmitsSecSrv001()
     {
         SetupFactoryToReturn(null);
         var context = MakeContext(port: 4840);
@@ -64,7 +64,7 @@ public class ServerConfigCheckerTests
     }
 
     [Fact]
-    public async Task SecSrv001_NotTriggered_WhenPortIsNotDefault()
+    public async Task RunAsync_PortIsNotDefault_DoesNotEmitSecSrv001()
     {
         SetupFactoryToReturn(null);
         var context = MakeContext(port: 48400, url: "opc.tcp://192.168.1.1:48400");
@@ -77,7 +77,7 @@ public class ServerConfigCheckerTests
     // ── SEC-SRV-002 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecSrv002_Triggered_WhenServerInfoIsAvailable()
+    public async Task RunAsync_ServerInfoAvailable_EmitsSecSrv002()
     {
         SetupFactoryToReturn(null);
         var context = MakeContext(serverInfo: SomeServerInfo());
@@ -91,7 +91,7 @@ public class ServerConfigCheckerTests
     }
 
     [Fact]
-    public async Task SecSrv002_NotTriggered_WhenServerInfoIsNull()
+    public async Task RunAsync_ServerInfoIsNull_DoesNotEmitSecSrv002()
     {
         SetupFactoryToReturn(null);
         var context = MakeContext(serverInfo: null);
@@ -104,7 +104,7 @@ public class ServerConfigCheckerTests
     // ── SEC-SRV-003 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecSrv003_Triggered_WhenAnonymousSessionSucceeds()
+    public async Task RunAsync_AnonymousSessionSucceeds_EmitsSecSrv003()
     {
         var session = MockSession(auditingNodeValue: false);
         SetupFactoryToReturn(session);
@@ -117,7 +117,7 @@ public class ServerConfigCheckerTests
     }
 
     [Fact]
-    public async Task SecSrv003_NotTriggered_WhenSessionFactoryReturnsNull()
+    public async Task RunAsync_SessionFactoryReturnsNull_DoesNotEmitSecSrv003()
     {
         SetupFactoryToReturn(null);
         var context = MakeContext();
@@ -130,7 +130,7 @@ public class ServerConfigCheckerTests
     // ── SEC-SRV-004 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecSrv004_Triggered_WhenAuditingNodeReturnsFalse()
+    public async Task RunAsync_AuditingNodeReturnsFalse_EmitsSecSrv004()
     {
         var session = MockSession(auditingNodeValue: (object)false);
         SetupFactoryToReturn(session);
@@ -143,7 +143,7 @@ public class ServerConfigCheckerTests
     }
 
     [Fact]
-    public async Task SecSrv004_Triggered_WhenAuditingNodeReturnsNull()
+    public async Task RunAsync_AuditingNodeReturnsNull_EmitsSecSrv004()
     {
         var session = MockSession(auditingNodeValue: null);
         SetupFactoryToReturn(session);
@@ -155,7 +155,7 @@ public class ServerConfigCheckerTests
     }
 
     [Fact]
-    public async Task SecSrv004_NotTriggered_WhenAuditingNodeReturnsTrue()
+    public async Task RunAsync_AuditingNodeReturnsTrue_DoesNotEmitSecSrv004()
     {
         var session = MockSession(auditingNodeValue: (object)true);
         SetupFactoryToReturn(session);
@@ -167,7 +167,7 @@ public class ServerConfigCheckerTests
     }
 
     [Fact]
-    public async Task SecSrv004_Triggered_WithNoSessionNote_WhenNoSessionAvailable()
+    public async Task RunAsync_NoSessionAvailable_EmitsSecSrv004WithNoSessionDescription()
     {
         SetupFactoryToReturn(null);
         var context = MakeContext();

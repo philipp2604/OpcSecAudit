@@ -56,7 +56,7 @@ public class CertificateCheckerTests
     // ── SEC-CERT-001 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecCert001_Triggered_WhenCertificateIsExpired()
+    public async Task RunAsync_CertificateIsExpired_EmitsSecCert001()
     {
         var cert = GoodCert(notAfter: DateTime.UtcNow.AddDays(-1));
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -68,7 +68,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert001_NotTriggered_WhenCertificateIsValid()
+    public async Task RunAsync_CertificateIsValid_DoesNotEmitSecCert001()
     {
         var cert = GoodCert(notAfter: DateTime.UtcNow.AddDays(365));
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -81,7 +81,7 @@ public class CertificateCheckerTests
     // ── SEC-CERT-002 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecCert002_Triggered_WhenKeySizeIsBelow2048()
+    public async Task RunAsync_KeySizeIsBelow2048_EmitsSecCert002()
     {
         var cert = GoodCert(keySizeBits: 1024);
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -93,7 +93,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert002_NotTriggered_WhenKeySizeIs2048()
+    public async Task RunAsync_KeySizeIs2048_DoesNotEmitSecCert002()
     {
         var cert = GoodCert(keySizeBits: 2048);
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -106,7 +106,7 @@ public class CertificateCheckerTests
     // ── SEC-CERT-003 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecCert003_Triggered_WhenSha1SignatureAlgorithm()
+    public async Task RunAsync_Sha1SignatureAlgorithm_EmitsSecCert003()
     {
         var cert = GoodCert(signatureAlgorithm: "sha1RSA");
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -118,7 +118,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert003_NotTriggered_WhenSha256SignatureAlgorithm()
+    public async Task RunAsync_Sha256SignatureAlgorithm_DoesNotEmitSecCert003()
     {
         var cert = GoodCert(signatureAlgorithm: "sha256RSA");
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -131,7 +131,7 @@ public class CertificateCheckerTests
     // ── SEC-CERT-004 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecCert004_Triggered_WhenCertExpiresWithin30Days()
+    public async Task RunAsync_CertExpiresWithin30Days_EmitsSecCert004()
     {
         var cert = GoodCert(notAfter: DateTime.UtcNow.AddDays(15));
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -143,7 +143,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert004_NotTriggered_WhenCertExpiresInMoreThan30Days()
+    public async Task RunAsync_CertExpiresInMoreThan30Days_DoesNotEmitSecCert004()
     {
         var cert = GoodCert(notAfter: DateTime.UtcNow.AddDays(60));
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -156,7 +156,7 @@ public class CertificateCheckerTests
     // ── SEC-CERT-005 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecCert005_Triggered_WhenCertificateIsSelfSigned()
+    public async Task RunAsync_CertificateIsSelfSigned_EmitsSecCert005()
     {
         var cert = GoodCert(isSelfSigned: true);
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -168,7 +168,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert005_NotTriggered_WhenCertificateIsNotSelfSigned()
+    public async Task RunAsync_CertificateIsNotSelfSigned_DoesNotEmitSecCert005()
     {
         var cert = GoodCert(isSelfSigned: false);
         var context = MakeContext([MakeEndpointWithCert(cert)]);
@@ -181,7 +181,7 @@ public class CertificateCheckerTests
     // ── SEC-CERT-006 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecCert006_Triggered_WhenHostnameNotInCertificate()
+    public async Task RunAsync_HostnameNotInCertificate_EmitsSecCert006()
     {
         var cert = GoodCert(hostname: "otherserver", subjectAltNames: ["otherserver"]);
         var context = MakeContext([MakeEndpointWithCert(cert)], hostname: "myserver");
@@ -193,7 +193,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert006_NotTriggered_WhenHostnameMatchesSubjectCn()
+    public async Task RunAsync_HostnameMatchesSubjectCn_DoesNotEmitSecCert006()
     {
         // Subject = "CN=myserver" and SANs is empty — CN match should pass
         var cert = GoodCert(hostname: "myserver", subjectAltNames: []);
@@ -205,7 +205,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task SecCert006_NotTriggered_WhenHostnameMatchesSan()
+    public async Task RunAsync_HostnameMatchesSan_DoesNotEmitSecCert006()
     {
         var cert = GoodCert(hostname: "other", subjectAltNames: ["myserver", "other"]);
         var context = MakeContext([MakeEndpointWithCert(cert)], hostname: "myserver");
@@ -218,7 +218,7 @@ public class CertificateCheckerTests
     // ── Edge cases ────────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task NoServerCertificate_DoesNotTriggerAnyCertFindings()
+    public async Task RunAsync_NoServerCertificate_EmitsNoFindings()
     {
         var endpoint = new EndpointInfo
         {
@@ -237,7 +237,7 @@ public class CertificateCheckerTests
     }
 
     [Fact]
-    public async Task DuplicateCertificateByThumbprint_EvaluatedOnlyOnce()
+    public async Task RunAsync_DuplicateCertificateByThumbprint_EvaluatedOnlyOnce()
     {
         // Both endpoints share the same certificate (same thumbprint).
         var cert = GoodCert(isSelfSigned: true);

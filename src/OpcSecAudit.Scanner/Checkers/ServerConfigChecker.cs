@@ -119,9 +119,10 @@ public class ServerConfigChecker(
                     Id = "SEC-SRV-004",
                     Category = Category,
                     Severity = Severity.Info,
-                    Title = "Audit Logging Status Could Not Be Determined",
+                    Title = "Audit Logging Not Enabled",
                     Description = $"The Server_Auditing node (i=2994) could not be checked because no anonymous " +
-                                  $"session could be established to '{context.TargetUrl}'.",
+                                  $"session could be established to '{context.TargetUrl}'. " +
+                                  $"Audit logging status is unknown.",
                     Recommendation = "Enable audit logging on the OPC UA server. " +
                                      "Audit events provide traceability for security-relevant operations."
                 });

@@ -41,7 +41,7 @@ public class AuthenticationCheckerTests
     // ── SEC-AUTH-001 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecAuth001_Triggered_WhenAnonymousTokenOnNoneEndpoint()
+    public async Task RunAsync_AnonymousTokenOnNoneEndpoint_EmitsSecAuth001()
     {
         var context = MakeContext([MakeEndpoint("None", [Anon()])]);
 
@@ -52,7 +52,7 @@ public class AuthenticationCheckerTests
     }
 
     [Fact]
-    public async Task SecAuth001_NotTriggered_WhenAnonymousTokenOnEncryptedEndpoint()
+    public async Task RunAsync_AnonymousTokenOnEncryptedEndpoint_DoesNotEmitSecAuth001()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", [Anon()])]);
 
@@ -62,7 +62,7 @@ public class AuthenticationCheckerTests
     }
 
     [Fact]
-    public async Task SecAuth001_DescriptionContainsAllAffectedUrls()
+    public async Task RunAsync_MultipleVulnerableEndpoints_DescriptionContainsAllAffectedUrls()
     {
         var ep1 = MakeEndpoint("None", [Anon()], "opc.tcp://srv:4840");
         var ep2 = MakeEndpoint("None", [Anon()], "opc.tcp://srv:4841");
@@ -78,7 +78,7 @@ public class AuthenticationCheckerTests
     // ── SEC-AUTH-002 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecAuth002_Triggered_WhenAnonymousTokenOnEncryptedEndpoint()
+    public async Task RunAsync_AnonymousTokenOnEncryptedEndpoint_EmitsSecAuth002()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", [Anon()])]);
 
@@ -89,7 +89,7 @@ public class AuthenticationCheckerTests
     }
 
     [Fact]
-    public async Task SecAuth002_NotTriggered_WhenNoAnonymousOnEncryptedEndpoint()
+    public async Task RunAsync_NoAnonymousOnEncryptedEndpoint_DoesNotEmitSecAuth002()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", [UserName()])]);
 
@@ -101,7 +101,7 @@ public class AuthenticationCheckerTests
     // ── SEC-AUTH-003 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecAuth003_Triggered_WhenUserNameOnNoneEndpointWithoutTokenPolicy()
+    public async Task RunAsync_UserNameOnNoneEndpointWithoutTokenPolicy_EmitsSecAuth003()
     {
         var context = MakeContext([MakeEndpoint("None", [UserName(policyUri: null)])]);
 
@@ -112,7 +112,7 @@ public class AuthenticationCheckerTests
     }
 
     [Fact]
-    public async Task SecAuth003_NotTriggered_WhenUserNameHasTokenLevelSecurityPolicy()
+    public async Task RunAsync_UserNameHasTokenLevelSecurityPolicy_DoesNotEmitSecAuth003()
     {
         const string tokenPolicy = "http://opcfoundation.org/UA/SecurityPolicy#Basic256Sha256";
         var context = MakeContext([MakeEndpoint("None", [UserName(policyUri: tokenPolicy)])]);
@@ -123,7 +123,7 @@ public class AuthenticationCheckerTests
     }
 
     [Fact]
-    public async Task SecAuth003_NotTriggered_WhenUserNameIsOnEncryptedEndpoint()
+    public async Task RunAsync_UserNameIsOnEncryptedEndpoint_DoesNotEmitSecAuth003()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", [UserName(policyUri: null)])]);
 
@@ -135,7 +135,7 @@ public class AuthenticationCheckerTests
     // ── SEC-AUTH-004 ──────────────────────────────────────────────────────────
 
     [Fact]
-    public async Task SecAuth004_Triggered_WhenNoCertificateTokenOnAnyEndpoint()
+    public async Task RunAsync_NoCertificateTokenOnAnyEndpoint_EmitsSecAuth004()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", [Anon(), UserName()])]);
 
@@ -146,7 +146,7 @@ public class AuthenticationCheckerTests
     }
 
     [Fact]
-    public async Task SecAuth004_NotTriggered_WhenAtLeastOneCertificateTokenExists()
+    public async Task RunAsync_AtLeastOneCertificateTokenExists_DoesNotEmitSecAuth004()
     {
         var context = MakeContext([MakeEndpoint("SignAndEncrypt", [Anon(), Certificate()])]);
 

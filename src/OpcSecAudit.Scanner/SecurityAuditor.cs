@@ -192,7 +192,7 @@ public class SecurityAuditor(
                 SubjectAltNames = sans
             };
         }
-        catch
+        catch (CryptographicException)
         {
             return null;
         }
@@ -298,7 +298,11 @@ public class SecurityAuditor(
             var value = await session.ReadValueAsync(nodeId, cancellationToken).ConfigureAwait(false);
             return value?.Value?.ToString();
         }
-        catch
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception)
         {
             return null;
         }
