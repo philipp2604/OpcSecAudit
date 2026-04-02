@@ -59,14 +59,16 @@ var noColorOption = new Option<bool>("--no-color", [])
     Description = "Disable colored console output"
 };
 
-var scanCommand = new Command("scan", "Run a security audit against an OPC UA server");
+var scanCommand = new Command("scan", "Run a security audit against an OPC UA server  (run 'scan --help' for all options)");
 scanCommand.Add(targetArgument);
 scanCommand.Add(outputOption);
 scanCommand.Add(timeoutOption);
 scanCommand.Add(verboseOption);
 scanCommand.Add(noColorOption);
 
-var rootCommand = new RootCommand("OpcSecAudit — OPC UA Security Auditor");
+var rootCommand = new RootCommand(
+    "OpcSecAudit — OPC UA Security Auditor\n\n" +
+    "Run 'scan --help' to see all scan options (-o/--output, -t/--timeout, --verbose, --no-color).");
 rootCommand.Add(scanCommand);
 
 scanCommand.SetAction(async (ParseResult parseResult, CancellationToken ct) =>
