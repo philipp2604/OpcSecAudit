@@ -25,7 +25,7 @@
 OpcSecAudit can export a standalone, styled HTML report containing an executive summary, finding details, and the overall security posture of the scanned OPC UA server.
 
 <a href="docs/report-screenshot.png">
-  <img src="docs/report-screenshot.png" alt="OpcSecAudit HTML Report Preview" width="600">
+  <img src="docs/report-screenshot.png" alt="OpcSecAudit HTML Report Preview" width="50%" height="50%">
 </a>
 
 *Generate this report by adding the `-o report.html` flag to your scan.*
