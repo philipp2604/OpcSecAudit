@@ -1,6 +1,6 @@
 # OpcSecAudit
 
-[![CI](https://github.com/USER/OpcSecAudit/actions/workflows/ci.yml/badge.svg)](https://github.com/USER/OpcSecAudit/actions/workflows/ci.yml)
+[![CI](https://github.com/philipp2604/OpcSecAudit/actions/workflows/ci.yml/badge.svg)](https://github.com/philipp2604/OpcSecAudit/actions/workflows/ci.yml)
 
 **OpcSecAudit** is a command-line tool that connects to an OPC UA server, evaluates its security configuration, and produces a findings report. It performs passive, non-destructive checks across four security categories — endpoint security, authentication, server certificates, and server configuration — then presents the results on the console and optionally exports a self-contained HTML report.
 
@@ -22,7 +22,7 @@
 ### Build from source
 
 ```bash
-git clone https://github.com/USER/OpcSecAudit.git
+git clone https://github.com/philipp2604/OpcSecAudit.git
 cd OpcSecAudit
 dotnet build --configuration Release
 ```
