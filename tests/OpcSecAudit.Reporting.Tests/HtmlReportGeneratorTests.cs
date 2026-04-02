@@ -14,6 +14,8 @@ public class HtmlReportGeneratorTests : IDisposable
         {
             File.Delete(_outputPath);
         }
+
+        GC.SuppressFinalize(this);
     }
 
     private static AuditResult BuildResult(
@@ -37,7 +39,7 @@ public class HtmlReportGeneratorTests : IDisposable
     {
         var result = BuildResult();
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
         File.Exists(_outputPath).ShouldBeTrue();
     }
@@ -47,9 +49,9 @@ public class HtmlReportGeneratorTests : IDisposable
     {
         var result = BuildResult();
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldStartWith("<!DOCTYPE html>");
         html.ShouldContain("</html>");
     }
@@ -61,9 +63,9 @@ public class HtmlReportGeneratorTests : IDisposable
     {
         var result = BuildResult();
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("opc.tcp://192.168.1.1:4840");
     }
 
@@ -75,9 +77,9 @@ public class HtmlReportGeneratorTests : IDisposable
         List<Finding> findings = [MakeFinding("SEC-EP-001", Severity.Critical)];
         var result = BuildResult(findings: findings);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("FAIL");
     }
 
@@ -87,9 +89,9 @@ public class HtmlReportGeneratorTests : IDisposable
         List<Finding> findings = [MakeFinding("SEC-EP-002", Severity.Warning)];
         var result = BuildResult(findings: findings);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("REVIEW");
         html.ShouldNotContain("FAIL");
     }
@@ -99,9 +101,9 @@ public class HtmlReportGeneratorTests : IDisposable
     {
         var result = BuildResult(findings: []);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("PASS");
     }
 
@@ -113,9 +115,9 @@ public class HtmlReportGeneratorTests : IDisposable
         List<Finding> findings = [MakeFinding("SEC-EP-001", Severity.Critical, "Unencrypted Endpoint Available")];
         var result = BuildResult(findings: findings);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("SEC-EP-001");
         html.ShouldContain("Unencrypted Endpoint Available");
     }
@@ -136,9 +138,9 @@ public class HtmlReportGeneratorTests : IDisposable
         };
         var result = BuildResult(findings: [finding]);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("cwe.mitre.org/data/definitions/319.html");
         html.ShouldContain("CWE-319");
     }
@@ -153,9 +155,9 @@ public class HtmlReportGeneratorTests : IDisposable
         };
         var result = BuildResult(findings: findings);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("Endpoint Security");
         html.ShouldContain("Authentication");
         // Category heading should appear before finding ID
@@ -181,9 +183,9 @@ public class HtmlReportGeneratorTests : IDisposable
         };
         var result = BuildResult(endpoints: endpoints);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("none-mode");
     }
 
@@ -203,9 +205,9 @@ public class HtmlReportGeneratorTests : IDisposable
         };
         var result = BuildResult(endpoints: endpoints);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("Basic256Sha256");
         html.ShouldNotContain("http://opcfoundation.org/UA/SecurityPolicy#Basic256Sha256");
     }
@@ -224,9 +226,9 @@ public class HtmlReportGeneratorTests : IDisposable
         };
         var result = BuildResult(serverInfo: serverInfo);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("AcmePLC");
         html.ShouldContain("3.2.1");
     }
@@ -236,9 +238,9 @@ public class HtmlReportGeneratorTests : IDisposable
     {
         var result = BuildResult(serverInfo: null);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         // No server info card when null
         html.ShouldNotContain("Server Information");
     }
@@ -259,9 +261,9 @@ public class HtmlReportGeneratorTests : IDisposable
         };
         var result = BuildResult(findings: [finding]);
 
-        await _sut.GenerateAsync(result, _outputPath, CancellationToken.None);
+        await _sut.GenerateAsync(result, _outputPath, TestContext.Current.CancellationToken);
 
-        var html = await File.ReadAllTextAsync(_outputPath);
+        var html = await File.ReadAllTextAsync(_outputPath, TestContext.Current.CancellationToken);
         html.ShouldContain("&lt;script&gt;");
         html.ShouldContain("&amp;");
         html.ShouldNotContain("<script>");
